@@ -126,8 +126,9 @@ class Vulture(ast.NodeVisitor):
 
     @property
     def unused_vars(self):
-        return self.get_unused(self.defined_vars,
-                               self.used_vars + self.used_attrs + self.tuple_assign_vars)
+        return self.get_unused(
+            self.defined_vars,
+            self.used_vars + self.used_attrs + self.tuple_assign_vars)
 
     @property
     def unused_attrs(self):
