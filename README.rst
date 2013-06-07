@@ -1,6 +1,10 @@
 vulture - Find dead code
 ========================
 
+.. image:: https://travis-ci.org/myint/vulture.png?branch=master
+   :target: https://travis-ci.org/myint/vulture
+   :alt: Build status
+
 vulture finds unused classes, functions and variables in your code. This helps
 you cleanup and find errors in your programs. If you run it on both your
 library and test suite you can find untested code.
