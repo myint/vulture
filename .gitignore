@@ -1,0 +1,7 @@
+.travis-solo
+dist
+build
+*.pyc
+*~
+.tox/
+MANIFEST
