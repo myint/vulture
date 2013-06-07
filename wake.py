@@ -24,12 +24,13 @@ from fnmatch import fnmatchcase
 import os
 import re
 
-__version__ = "0.3"
+__version__ = '0.3'
 
 FORMAT_STRING_PATTERN = re.compile(r'\%\((\S+)\)s')
 
 
 class Item(str):
+
     def __new__(cls, name, typ, file, lineno, line):
         item = str.__new__(cls, name)
         item.typ = typ
@@ -40,6 +41,7 @@ class Item(str):
 
 
 class Vulture(ast.NodeVisitor):
+
     """Find dead stuff."""
     def __init__(self, exclude=None, verbose=False):
         self.exclude = []
@@ -125,7 +127,7 @@ class Vulture(ast.NodeVisitor):
     @property
     def unused_vars(self):
         return self.get_unused(self.defined_vars,
-                    self.used_vars + self.used_attrs + self.tuple_assign_vars)
+                               self.used_vars + self.used_attrs + self.tuple_assign_vars)
 
     @property
     def unused_attrs(self):
@@ -135,7 +137,7 @@ class Vulture(ast.NodeVisitor):
         return getattr(node, 'lineno', 1)
 
     def _get_line(self, node):
-        return self.code[self._get_lineno(node) - 1] if self.code else ""
+        return self.code[self._get_lineno(node) - 1] if self.code else ''
 
     def _get_item(self, node, typ):
         name = getattr(node, 'name', None)
@@ -200,7 +202,7 @@ class Vulture(ast.NodeVisitor):
                 continue
             for grandchild in ast.walk(child):
                 if (isinstance(grandchild, ast.Name) and
-                    isinstance(grandchild.ctx, ast.Store)):
+                        isinstance(grandchild.ctx, ast.Store)):
                     self.log('tuple_assign_vars <-', grandchild.id)
                     self.tuple_assign_vars.append(grandchild.id)
 
@@ -217,7 +219,11 @@ class Vulture(ast.NodeVisitor):
         self.defined_funcs.append(self._get_item(node, 'class'))
 
     def visit_Str(self, node):
-        """Variables may appear in format strings: '%(a)s' % locals()"""
+        """Variables may appear in format strings:
+
+        '%(a)s' % locals()
+
+        """
         self.used_vars.extend(FORMAT_STRING_PATTERN.findall(node.s))
 
     def visit(self, node):

@@ -216,7 +216,7 @@ class Bar(object):
 
 def test_variable1():
     v = Vulture(verbose=True)
-    v.scan("a = 1\nb = a")
+    v.scan('a = 1\nb = a')
     assert v.defined_funcs == []
     assert v.used_vars == ['a']
     assert v.defined_vars == ['a', 'b']
@@ -225,7 +225,7 @@ def test_variable1():
 
 def test_variable2():
     v = Vulture(verbose=True)
-    v.scan("a = 1\nc = b.a")
+    v.scan('a = 1\nc = b.a')
     assert v.defined_funcs == []
     assert v.defined_vars == ['a', 'c']
     assert v.used_vars == ['b']
@@ -243,7 +243,7 @@ def test_variable3():
 
 def test_variable4():
     v = Vulture(verbose=True)
-    v.scan("(a, b), c = (d, e, f)")
+    v.scan('(a, b), c = (d, e, f)')
     assert v.defined_funcs == []
     assert v.defined_vars == ['a', 'b', 'c']
     assert v.used_vars == ['d', 'e', 'f']
@@ -253,7 +253,7 @@ def test_variable4():
 
 def test_variable5():
     v = Vulture(verbose=True)
-    v.scan("for a, b in func(): a")
+    v.scan('for a, b in func(): a')
     assert v.defined_funcs == []
     assert v.defined_vars == ['a', 'b']
     assert sorted(v.used_vars) == ['a', 'func']
@@ -263,7 +263,7 @@ def test_variable5():
 
 def test_variable6():
     v = Vulture(verbose=True)
-    v.scan("[a for a, b in func()]")
+    v.scan('[a for a, b in func()]')
     assert v.defined_vars == ['a', 'b']
     assert sorted(v.used_vars) == ['a', 'func']
     assert v.tuple_assign_vars == ['a', 'b']
@@ -272,7 +272,7 @@ def test_variable6():
 
 def test_unused_var1():
     v = Vulture(verbose=True)
-    v.scan("_a = 1\n__b = 2\n__c__ = 3")
+    v.scan('_a = 1\n__b = 2\n__c__ = 3')
     assert v.defined_vars == []
     assert sorted(v.used_vars) == []
     assert v.unused_vars == []

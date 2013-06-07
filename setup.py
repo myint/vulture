@@ -21,7 +21,7 @@ with open('README.rst') as _readme:
 
 setup(name='vulture',
       version=__version__,
-      description="Find dead code",
+      description='Find dead code',
       long_description=DESCRIPTION,
       keywords='vulture',
       author='Jendrik Seipp',
@@ -31,12 +31,12 @@ setup(name='vulture',
       py_modules=['wake'],
       scripts=['vulture'],
       classifiers=[
-        "Environment :: Console",
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3"
-        "Topic :: Software Development",
-        "Topic :: Utilities",
-        ],
+      'Environment :: Console',
+      'Intended Audience :: Developers',
+      'License :: OSI Approved :: GNU General Public License (GPL)',
+      'Programming Language :: Python',
+      'Programming Language :: Python :: 3'
+      'Topic :: Software Development',
+      'Topic :: Utilities',
+      ],
       )
