@@ -3,8 +3,6 @@
 import ast
 from distutils.core import setup
 
-from wake import __version__
-
 
 def version():
     """Return version string."""
@@ -20,7 +18,7 @@ with open('README.rst') as _readme:
 
 
 setup(name='vulture',
-      version=__version__,
+      version=version(),
       description='Find dead code',
       long_description=DESCRIPTION,
       keywords='vulture',
