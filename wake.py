@@ -66,9 +66,9 @@ class Vulture(ast.NodeVisitor):
         self.code = node_string.splitlines()
         try:
             node = ast.parse(node_string)
-        except SyntaxError as e:
+        except SyntaxError:
             print('Error in file', self.file)
-            raise e
+            return
         self.visit(node)
 
     def _get_modules(self, paths, toplevel=True):
