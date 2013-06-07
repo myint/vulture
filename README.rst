@@ -25,13 +25,9 @@ Installation
 
 * vulture supports Python 2.6, 2.7 and 3.x
 
-You can install, upgrade, uninstall vulture.py with these commands::
+You can install vulture with this command::
 
-  $ sudo pip install vulture
-  $ sudo pip install --upgrade vulture
-  $ sudo pip uninstall vulture
-
-`pip` can be installed with `sudo apt-get install python-pip`.
+  $ pip install --upgrade https://github.com/myint/vulture
 
 
 Usage
