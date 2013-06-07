@@ -102,8 +102,10 @@ class Vulture(ast.NodeVisitor):
             self.scan(module_string)
 
     def report(self):
+        """Return True if unused items are found."""
         def file_lineno(item):
             return (item.file.lower(), item.lineno)
+        found = False
         for item in sorted(self.unused_funcs + self.unused_props +
                            self.unused_vars + self.unused_attrs,
                            key=file_lineno):
@@ -111,6 +113,8 @@ class Vulture(ast.NodeVisitor):
             path = relpath if not relpath.startswith('..') else item.file
             print("%s:%d: Unused %s '%s'" % (path, item.lineno, item.typ,
                                              item))
+            found = True
+        return found
 
     def get_unused(self, defined, used):
         return list(sorted(set(defined) - set(used), key=lambda x: x.lower()))
