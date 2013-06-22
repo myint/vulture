@@ -21,6 +21,7 @@ from __future__ import print_function
 
 import ast
 from fnmatch import fnmatchcase
+import io
 import os
 import re
 
@@ -97,7 +98,8 @@ class Vulture(ast.NodeVisitor):
 
         for module in included_modules:
             self.log('Scanning:', module)
-            module_string = open(module).read()
+            with open_with_encoding(module) as input_file:
+                module_string = input_file.read()
             self.file = module
             self.scan(module_string)
 
@@ -239,3 +241,28 @@ class Vulture(ast.NodeVisitor):
                 self.print_node(node)
             visitor(node)
         return self.generic_visit(node)
+
+
+def open_with_encoding(filename, encoding=None, mode='r'):
+    """Return opened file with a specific encoding."""
+    if not encoding:
+        encoding = detect_encoding(filename)
+
+    return io.open(filename, mode=mode, encoding=encoding,
+                   newline='')  # Preserve line endings
+
+
+def detect_encoding(filename):
+    """Return file encoding."""
+    try:
+        with open(filename, 'rb') as input_file:
+            from lib2to3.pgen2 import tokenize as lib2to3_tokenize
+            encoding = lib2to3_tokenize.detect_encoding(input_file.readline)[0]
+
+        # Check for correctness of encoding
+        with open_with_encoding(filename, encoding) as test_file:
+            test_file.read()
+
+        return encoding
+    except (LookupError, SyntaxError, UnicodeDecodeError):
+        return 'latin-1'
