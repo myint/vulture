@@ -63,7 +63,7 @@ class Vulture(ast.NodeVisitor):
         self.used_vars = []
         self.tuple_assign_vars = []
 
-        self.file = None
+        self.filename = None
         self.code = None
 
     def scan(self, node_string):
@@ -71,7 +71,7 @@ class Vulture(ast.NodeVisitor):
         try:
             node = ast.parse(node_string)
         except SyntaxError:
-            print('Error in file', self.file)
+            print('Error in file', self.filename)
             return
         self.visit(node)
 
@@ -101,7 +101,7 @@ class Vulture(ast.NodeVisitor):
             self.log('Scanning:', module)
             with open_with_encoding(module) as input_file:
                 module_string = input_file.read()
-            self.file = module
+            self.filename = module
             self.scan(module_string)
 
     def report(self):
@@ -152,7 +152,7 @@ class Vulture(ast.NodeVisitor):
         id = getattr(node, 'id', None)
         attr = getattr(node, 'attr', None)
         assert len([x for x in (name, id, attr) if x is not None]) == 1
-        return Item(name or id or attr, typ, self.file, node.lineno,
+        return Item(name or id or attr, typ, self.filename, node.lineno,
                     self._get_line(node))
 
     def log(self, *args):
