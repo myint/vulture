@@ -32,10 +32,10 @@ FORMAT_STRING_PATTERN = re.compile(r'\%\((\S+)\)s')
 
 class Item(str):
 
-    def __new__(cls, name, typ, file, lineno, line):
+    def __new__(cls, name, typ, filename, lineno, line):
         item = str.__new__(cls, name)
         item.typ = typ
-        item.file = file
+        item.filename = filename
         item.lineno = lineno
         item.line = line
         return item
@@ -71,7 +71,7 @@ class Vulture(ast.NodeVisitor):
         try:
             node = ast.parse(node_string)
         except SyntaxError:
-            print('Error in file', self.filename)
+            print('Error in file:', self.filename)
             return
         self.visit(node)
 
@@ -107,13 +107,13 @@ class Vulture(ast.NodeVisitor):
     def report(self):
         """Return True if unused items are found."""
         def file_lineno(item):
-            return (item.file.lower(), item.lineno)
+            return (item.filename.lower(), item.lineno)
         found = False
         for item in sorted(self.unused_funcs + self.unused_props +
                            self.unused_vars + self.unused_attrs,
                            key=file_lineno):
-            relpath = os.path.relpath(item.file)
-            path = relpath if not relpath.startswith('..') else item.file
+            relpath = os.path.relpath(item.filename)
+            path = relpath if not relpath.startswith('..') else item.filename
             print("%s:%d: Unused %s '%s'" % (path, item.lineno, item.typ,
                                              item))
             found = True
