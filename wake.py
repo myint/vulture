@@ -44,6 +44,7 @@ class Item(str):
 class Vulture(ast.NodeVisitor):
 
     """Find dead stuff."""
+
     def __init__(self, exclude=None, verbose=False):
         self.exclude = []
         for pattern in exclude or []:
