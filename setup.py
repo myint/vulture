@@ -29,12 +29,11 @@ setup(name='vulture',
       py_modules=['wake'],
       scripts=['vulture'],
       classifiers=[
-      'Environment :: Console',
-      'Intended Audience :: Developers',
-      'License :: OSI Approved :: GNU General Public License (GPL)',
-      'Programming Language :: Python',
-      'Programming Language :: Python :: 3'
-      'Topic :: Software Development',
-      'Topic :: Utilities',
-      ],
-      )
+          'Environment :: Console',
+          'Intended Audience :: Developers',
+          'License :: OSI Approved :: GNU General Public License (GPL)',
+          'Programming Language :: Python',
+          'Programming Language :: Python :: 3',
+          'Topic :: Software Development',
+          'Topic :: Utilities',
+      ])
