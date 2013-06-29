@@ -2,8 +2,8 @@ vulture - Find dead code
 ========================
 
 .. image:: https://travis-ci.org/myint/vulture.png?branch=master
-   :target: https://travis-ci.org/myint/vulture
-   :alt: Build status
+    :target: https://travis-ci.org/myint/vulture
+    :alt: Build status
 
 vulture finds unused classes, functions and variables in your code. This helps
 you cleanup and find errors in your programs. If you run it on both your
@@ -31,7 +31,7 @@ Installation
 
 You can install vulture with this command::
 
-  $ pip install --upgrade https://github.com/myint/vulture
+    $ pip install --upgrade https://github.com/myint/vulture
 
 
 Usage
@@ -39,7 +39,7 @@ Usage
 
 ::
 
-  $ vulture --help
+    $ vulture --help
 
 After you have found and deleted dead code, run vulture again, because it
 may discover more dead code.
