@@ -25,7 +25,7 @@ import io
 import os
 import re
 
-__version__ = '0.3'
+__version__ = '1.0'
 
 FORMAT_STRING_PATTERN = re.compile(r'\%\((\S+)\)s')
 
