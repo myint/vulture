@@ -19,30 +19,35 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import optparse
+import argparse
 import sys
 
-from wake import Vulture
+import wake
 
 
 def parse_args():
-    def csv(option, opt, value, parser):
-        setattr(parser.values, option.dest, value.split(','))
-    usage = 'usage: %prog [options] PATH [PATH ...]'
-    parser = optparse.OptionParser(usage=usage)
-    parser.add_option('--exclude', action='callback', callback=csv,
-                      type='string', default=[],
-                      help='Comma-separated list of filename patterns to '
-                           'exclude (e.g. svn,external).')
-    parser.add_option('-v', '--verbose', action='store_true')
-    options, args = parser.parse_args()
-    return options, args
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--exclude', default='',
+                        help='Comma-separated list of filename patterns to '
+                             'exclude (e.g. svn,external).')
+    parser.add_argument('-v', '--verbose', action='store_true')
+    parser.add_argument('--version', action='version',
+                        version='%(prog)s ' + wake.__version__)
+    parser.add_argument('files', nargs='+')
+    args = parser.parse_args()
+
+    if args.exclude:
+        args.exclude = args.exclude.split(',')
+    else:
+        args.exclude = []
+
+    return args
 
 
 def main():
-    options, args = parse_args()
-    vulture = Vulture(exclude=options.exclude, verbose=options.verbose)
-    vulture.scavenge(args)
+    args = parse_args()
+    vulture = wake.Vulture(exclude=args.exclude, verbose=args.verbose)
+    vulture.scavenge(args.files)
     return 1 if vulture.report() else 0
 
 
