@@ -45,7 +45,7 @@ class Vulture(ast.NodeVisitor):
 
     """Find dead stuff."""
 
-    def __init__(self, exclude=None, verbose=False):
+    def __init__(self, exclude=None, verbose=False, level=2):
         self.exclude = []
         for pattern in exclude or []:
             if not any(char in pattern for char in ['*', '?', '[']):
@@ -53,6 +53,7 @@ class Vulture(ast.NodeVisitor):
             self.exclude.append(pattern)
 
         self.verbose = verbose
+        self.level = level
 
         self.defined_funcs = []
         self.used_funcs = []
@@ -139,6 +140,9 @@ class Vulture(ast.NodeVisitor):
 
     @property
     def unused_attrs(self):
+        if self.level < 1:
+            return []
+
         return self.get_unused(self.defined_attrs, self.used_attrs)
 
     def _get_lineno(self, node):
@@ -176,6 +180,12 @@ class Vulture(ast.NodeVisitor):
                 self.defined_props.append(self._get_item(node, 'property'))
                 break
         else:
+            if (self.level < 2 and
+                node.args.args and
+                node.args.args[0].arg == 'self'
+            ):
+                return
+
             # Only executed if function is not a property.
             if not (node.name.startswith('__') and node.name.endswith('__')):
                 self.defined_funcs.append(self._get_item(node, 'function'))

@@ -10,3 +10,4 @@ install:
 script:
     - py.test
     - vulture setup.py vulture
+    - vulture --level=0 vulture wake.py

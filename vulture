@@ -28,8 +28,11 @@ import wake
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--exclude', default='',
-                        help='Comma-separated list of filename patterns to '
-                             'exclude (e.g. svn,external).')
+                        help='comma-separated list of filename patterns to '
+                             'exclude (e.g. svn,external)')
+    parser.add_argument('-l', '--level', type=int, default=2,
+                        help='higher levels result in more false positives '
+                             '(default: %(default)s)')
     parser.add_argument('-v', '--verbose', action='store_true')
     parser.add_argument('--version', action='version',
                         version='%(prog)s ' + wake.__version__)
@@ -46,7 +49,8 @@ def parse_args():
 
 def main():
     args = parse_args()
-    vulture = wake.Vulture(exclude=args.exclude, verbose=args.verbose)
+    vulture = wake.Vulture(exclude=args.exclude, verbose=args.verbose,
+                           level=args.level)
     vulture.scavenge(args.files)
     return 1 if vulture.report() else 0
 
