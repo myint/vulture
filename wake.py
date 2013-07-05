@@ -180,7 +180,8 @@ class Vulture(ast.NodeVisitor):
                 self.defined_props.append(self._get_item(node, 'property'))
                 break
         else:
-            if (self.level < 2 and
+            if (
+                self.level < 2 and
                 node.args.args and
                 node.args.args[0].arg == 'self'
             ):
