@@ -85,7 +85,8 @@ class Vulture(ast.NodeVisitor):
                 modules.append(path)
             elif os.path.isdir(path):
                 subpaths = [os.path.join(path, filename)
-                            for filename in sorted(os.listdir(path))]
+                            for filename in sorted(os.listdir(path))
+                            if not filename.startswith('.')]
                 modules.extend(self._get_modules(subpaths, toplevel=False))
         return modules
 
