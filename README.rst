@@ -1,7 +1,7 @@
 vulture - Find dead code
 ========================
 
-.. image:: https://travis-ci.org/myint/vulture.png?branch=master
+.. image:: https://travis-ci.org/myint/vulture.svg?branch=master
     :target: https://travis-ci.org/myint/vulture
     :alt: Build status
 
