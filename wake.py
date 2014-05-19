@@ -25,9 +25,12 @@ import io
 import os
 import re
 
+
 __version__ = '1.0'
 
+
 FORMAT_STRING_PATTERN = re.compile(r'\%\((\S+)\)s')
+PYTHON_SHEBANG_PATTERN = re.compile(r'^#!.*\bpython[23]?\b\s*$')
 
 
 class Item(str):
@@ -81,7 +84,7 @@ class Vulture(ast.NodeVisitor):
         modules = []
         for path in paths:
             path = os.path.abspath(path)
-            if os.path.isfile(path) and (path.endswith('.py') or toplevel):
+            if os.path.isfile(path) and (is_python_file(path) or toplevel):
                 modules.append(path)
             elif os.path.isdir(path):
                 subpaths = [os.path.join(path, filename)
@@ -279,3 +282,20 @@ def detect_encoding(filename):
         return encoding
     except (LookupError, SyntaxError, UnicodeDecodeError):
         return 'latin-1'
+
+
+def is_python_file(filename):
+    """Return True if filename is Python file."""
+    if filename.endswith('.py'):
+        return True
+
+    try:
+        with open_with_encoding(filename) as f:
+            first_line = f.readlines(1)[0]
+    except (IOError, IndexError):
+        return False
+
+    if not PYTHON_SHEBANG_PATTERN.match(first_line):
+        return False
+
+    return True
