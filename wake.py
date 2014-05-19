@@ -124,21 +124,18 @@ class Vulture(ast.NodeVisitor):
             found = True
         return found
 
-    def get_unused(self, defined, used):
-        return list(sorted(set(defined) - set(used), key=lambda x: x.lower()))
-
     @property
     def unused_funcs(self):
-        return self.get_unused(self.defined_funcs,
-                               self.used_funcs + self.used_attrs)
+        return get_unused(self.defined_funcs,
+                          self.used_funcs + self.used_attrs)
 
     @property
     def unused_props(self):
-        return self.get_unused(self.defined_props, self.used_attrs)
+        return get_unused(self.defined_props, self.used_attrs)
 
     @property
     def unused_vars(self):
-        return self.get_unused(
+        return get_unused(
             self.defined_vars,
             self.used_vars + self.used_attrs + self.tuple_assign_vars)
 
@@ -147,13 +144,10 @@ class Vulture(ast.NodeVisitor):
         if self.level < 1:
             return []
 
-        return self.get_unused(self.defined_attrs, self.used_attrs)
-
-    def _get_lineno(self, node):
-        return getattr(node, 'lineno', 1)
+        return get_unused(self.defined_attrs, self.used_attrs)
 
     def _get_line(self, node):
-        return self.code[self._get_lineno(node) - 1] if self.code else ''
+        return self.code[get_lineno(node) - 1] if self.code else ''
 
     def _get_item(self, node, typ):
         name = getattr(node, 'name', None)
@@ -168,7 +162,7 @@ class Vulture(ast.NodeVisitor):
             print(*args)
 
     def print_node(self, node):
-        self.log(self._get_lineno(node), ast.dump(node), self._get_line(node))
+        self.log(get_lineno(node), ast.dump(node), self._get_line(node))
 
     def _get_func_name(self, func):
         for field in func._fields:
@@ -299,3 +293,11 @@ def is_python_file(filename):
         return False
 
     return True
+
+
+def get_unused(defined, used):
+    return list(sorted(set(defined) - set(used), key=lambda x: x.lower()))
+
+
+def get_lineno(node):
+    return getattr(node, 'lineno', 1)
