@@ -48,7 +48,7 @@ may discover more dead code.
 Similar programs
 ----------------
 
-* vulture can be used together with *pyflakes*
+* vulture can be used together with *pyflakes*.
 * The *coverage* module can find unused code more reliably, but requires all
   branches of the code to actually be run.
 
