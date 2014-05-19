@@ -1,5 +1,5 @@
-vulture - Find dead code
-========================
+vulture
+=======
 
 .. image:: https://travis-ci.org/myint/vulture.svg?branch=master
     :target: https://travis-ci.org/myint/vulture
@@ -18,16 +18,16 @@ in the code may be incorrectly reported as dead code.
 Features
 --------
 
-* Fast: Uses static code analysis
-* Lightweight: Only one module
-* Tested: Comes with a test suite
-* Complements *pyflakes* and has the same output syntax
+* Fast: Uses static code analysis.
+* Lightweight: Only one module.
+* Tested: Comes with a test suite.
+* Complements *pyflakes* and has the same output syntax.
 
 
 Installation
 ------------
 
-* vulture supports Python 2.6, 2.7 and 3.x
+* vulture supports Python 2.6, 2.7 and 3.x.
 
 You can install vulture with this command::
 
@@ -57,21 +57,3 @@ About the name
 --------------
 
 A *vulture* eats dead animals. A group of feeding vultures is called a *wake*.
-Simples.
-
-
-Feedback
---------
-
-Your feedback is more than welcome. Write emails to
-jendrikseipp@web.de or post bugs and feature requests on bitbucket:
-
-https://bitbucket.org/jendrikseipp/vulture/issues
-
-
-Source download
----------------
-
-The source code is available on bitbucket. Fork away!
-
-https://bitbucket.org/jendrikseipp/vulture
