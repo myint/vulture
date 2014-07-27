@@ -14,6 +14,12 @@ static code analyzer like vulture, because it ignores scopes and scans only
 token names. Additionally some dynamic items that are not explicitly called
 in the code may be incorrectly reported as dead code.
 
+This is a fork of the original_ that adds the ``--level`` option to optionally
+reduce false positives. This fork also detects Python scripts without having
+to rely on file extensions.
+
+.. _original: https://bitbucket.org/jendrikseipp/vulture
+
 
 Features
 --------
