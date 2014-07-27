@@ -5,8 +5,8 @@ vulture
     :target: https://travis-ci.org/myint/vulture
     :alt: Build status
 
-vulture finds unused classes, functions and variables in your code. This helps
-you cleanup and find errors in your programs. If you run it on both your
+`vulture` finds unused classes, functions and variables in your code. This
+helps you cleanup and find errors in your programs. If you run it on both your
 library and test suite you can find untested code.
 
 Due to Python's dynamic nature it is impossible to find all dead code for a
