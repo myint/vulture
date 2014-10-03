@@ -33,7 +33,7 @@ Features
 Installation
 ------------
 
-* vulture supports Python 2.6, 2.7 and 3.x.
+* vulture supports Python 2.7 and 3.x.
 
 You can install vulture with this command::
 
