@@ -9,6 +9,6 @@ install:
     - python setup.py --quiet install
 
 script:
-    - py.test
+    - py.test tests
     - vulture setup.py vulture
     - vulture --level=0 vulture wake.py
