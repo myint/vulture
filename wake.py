@@ -20,10 +20,11 @@
 from __future__ import print_function
 
 import ast
-from fnmatch import fnmatchcase
+import fnmatch
 import io
 import os
 import re
+import sys
 
 
 __version__ = '1.0'
@@ -75,7 +76,7 @@ class Vulture(ast.NodeVisitor):
         try:
             node = ast.parse(node_string)
         except SyntaxError:
-            print('Error in file:', self.filename)
+            print('Error in file:', self.filename, file=sys.stderr)
             return
         self.visit(node)
 
@@ -97,7 +98,8 @@ class Vulture(ast.NodeVisitor):
         modules = self._get_modules(paths)
         included_modules = []
         for module in modules:
-            if any(fnmatchcase(module, pattern) for pattern in self.exclude):
+            if any(fnmatch.fnmatchcase(module, pattern)
+                   for pattern in self.exclude):
                 self.log('Excluded:', module)
                 continue
             included_modules.append(module)
@@ -159,7 +161,7 @@ class Vulture(ast.NodeVisitor):
 
     def log(self, *args):
         if self.verbose:
-            print(*args)
+            print(*args, file=sys.stderr)
 
     def print_node(self, node):
         self.log(get_lineno(node), ast.dump(node), self._get_line(node))
