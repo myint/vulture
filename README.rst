@@ -37,7 +37,7 @@ Installation
 
 You can install vulture with this command::
 
-    $ pip install --upgrade https://github.com/myint/vulture
+    $ pip install --upgrade git+https://github.com/myint/vulture
 
 
 Usage
